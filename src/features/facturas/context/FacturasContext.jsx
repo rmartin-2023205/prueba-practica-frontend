@@ -14,7 +14,7 @@ export function FacturasProvider({ children }){
     setLoading(true); setError(null)
     try{
       const { data } = await api.get('/posts')
-      const enriched = data.map(p=>({ id:p.id, title:p.title, body:p.body, estado: false }))
+      const enriched = data.map(p=>({ id:p.id, title:p.title, body:p.body, estado: p.id % 3 === 0 }))
       setItems(enriched)
       setInitialized(true)
     }catch(err){ setError('No se pudo cargar el listado') }
@@ -23,19 +23,20 @@ export function FacturasProvider({ children }){
 
   useEffect(()=>{ fetchAll() },[fetchAll])
 
-  const getById = async (id)=>{
-    const found = items.find(i=> i.id===Number(id))
+  const getById = useCallback(async (id)=>{
+    const numId = Number(id)
+    const found = items.find(i=> i.id===numId)
     if(found) return found
     try{
-      const { data } = await api.get(`/posts/${id}`)
-      const nuevo = { id:data.id, title:data.title, body:data.body, estado:false }
+      const { data } = await api.get(`/posts/${numId}`)
+      const nuevo = { id:data.id, title:data.title, body:data.body, estado: data.id % 3 === 0 }
       setItems(prev=> {
         const exists = prev.some(i=> i.id===nuevo.id)
         return exists? prev.map(i=> i.id===nuevo.id? nuevo:i): [nuevo, ...prev]
       })
       return nuevo
     }catch(err){ throw new Error('No se pudo cargar la factura') }
-  }
+  },[items])
 
   const create = async (payload)=>{
     try{

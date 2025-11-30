@@ -110,12 +110,12 @@ export default function FacturaList(){
         <div className="d-flex justify-content-between align-items-center mt-3">
           <span className="text-muted">Página {page} de {pages}</span>
           <div className="btn-group">
-            <button className="btn btn-outline-light" disabled={page===1} onClick={()=>setPage(p=>p-1)}>Anterior</button>
-            <button className="btn btn-outline-light" disabled={page===pages} onClick={()=>setPage(p=>p+1)}>Siguiente</button>
+            <button className="btn btn-outline-info" disabled={page===1} onClick={()=>setPage(p=>p-1)}>Anterior</button>
+            <button className="btn btn-outline-info" disabled={page===pages} onClick={()=>setPage(p=>p+1)}>Siguiente</button>
           </div>
         </div>
 
-        {/* Modal de confirmación */}
+        
         <div className="modal" style={{display: toDelete? 'block':'none', background:'rgba(0,0,0,.6)'}}>
           <div className="modal-dialog">
             <div className="modal-content">

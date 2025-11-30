@@ -15,7 +15,7 @@ export default function App(){
       <Route element={<PrivateRoute/>}>
         <Route element={<Layout/>}>
           <Route path="/" element={<Navigate to="/dashboard"/>} />
-          <Route path="/dashboard" element={<div className='p-3'><h2>Dashboard</h2><p className='text-muted'>Bienvenido al panel de gestión.</p></div>} />
+          <Route path="/dashboard" element={<div className='p-3'><h2>Dashboard</h2><p className='text-white'>Bienvenido al panel de gestión.</p></div>} />
           <Route path="/facturas" element={<FacturaList />} />
           <Route path="/facturas/nueva" element={<FacturaForm mode='create' />} />
           <Route path="/facturas/:id" element={<FacturaDetail />} />
